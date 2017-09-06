@@ -1,0 +1,42 @@
+{
+  "template" : "tran-*",
+  "order" : 9,
+  "settings": {
+    "index": {
+      "number_of_shards" : 5,
+      "number_of_replicas" : 2,
+      "analysis": {
+        "analyzer": {
+          "analyzer_keyword": {
+            "tokenizer": "keyword",
+            "filter": "lowercase"
+          }
+        }
+      }
+    }
+  },
+  "_all" : {
+    "enabled" : "false"
+  },
+  "mappings": {
+          "type_name" : {
+          "properties"    : {
+               "customer_eid_for_alias" : { "type" : "string" , "index" : "not_analyzed" },
+               "customer_name"          : {
+                                               "type" : "nested",
+                                               "properties" : {
+                                                  "first_name"  : {"type" : "string"},
+                                                  "middle_name" : {"type" : "string"},
+                                                  "last_name"   : {"type" : "string"}
+                                                  }
+                                            },
+               "transaction_type"         : { "type" : "string" },
+               "transaction_new"          : { "type" : "boolean"},
+               "status"                   : { "type" : "string" },
+               "transaction_desc"         : { "type" : "string"},
+               "created_at_date" : { "type" : "date" },
+               "updated_at_date" : { "type" : "date" }
+             }
+           }
+  }
+}
