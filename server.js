@@ -29,8 +29,6 @@ function requireAndInit(handlers) {
 }
 
 requireAndInit([
-  './routes/getUsers.js',
-  './routes/getApps.js',
 	'./routes/createIndexMappingType.js',
 	'./routes/checkESCloud.js',
 	'./routes/addTypeToIndex.js',
