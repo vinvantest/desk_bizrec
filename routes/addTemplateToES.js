@@ -3,9 +3,9 @@
 var helper = require('../helper/helperFunctions.js');
 var esClient = require('../controllers/elasticConnection.js');
 
-function addTranTemplate(server) {
-  server.post('/addTranTemplate', function (req, res, next)
-	{
+function addTemplatetoES(server) {
+  server.post('/addTemplatetoES/:templateName', function (req, res, next)
+	{templateName
    console.log('Inside serer.post(addTranTemplate)');
    req.assert('templateName', 'templateName is required and must be alphanumeric string').notEmpty();//.isAlphanumeric();
    const errors = req.validationErrors();
@@ -17,7 +17,7 @@ function addTranTemplate(server) {
    var templateName = req.params.templateName;
 
    console.log('loading template.json file ....');
-	 var tranTemplateBody = require('../config/templates/tran_template_index_v1.json');
+	 var tranTemplateBody = require('../config/templates/banks_template.json');
    console.log('template.json file Loaded !');
 
    //console.log(JSON.stringify(tranTemplateBody));
@@ -49,4 +49,4 @@ function addTranTemplate(server) {
     }); //end server.post()
 };
 
-module.exports = addTranTemplate;
+module.exports = addTemplatetoES;

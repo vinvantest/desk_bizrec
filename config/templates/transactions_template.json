@@ -1,5 +1,5 @@
 {
-  "template" : "tran-*",
+  "template" : "transastions-*",
   "order" : 9,
   "settings": {
     "index": {
@@ -7,38 +7,20 @@
       "number_of_replicas" : 2,
       "analysis": {
         "analyzer": {
-              "filter": {
-                  "autocomplete_filter": {
-                      "type":     "edge_ngram",
-                      "min_gram": 1,
-                      "max_gram": 20,
-                      "token_chars": ["letter", "digit", "punctuation", "'symbol"]
-                  },
-                  "my_delimiter": {
-                      "type": "word_delimiter",
-                      "generate_word_parts": true,
-                      "catenate_words": true,
-                      "catenate_numbers": true,
-                      "catenate_all": true,
-                      "split_on_case_change": true,
-                      "preserve_original": true,
-                      "split_on_numerics": true,
-                      "stem_english_possessive": true
-                  }
-              },
               "analyzer_keyword": {
+                "type" : "custom",
                 "tokenizer": "keyword",
                 "filter": "lowercase"
               },
-              "autocomplete_analyser" : {
+              "standard" : {
                 "type": "custom",
                 "tokenizer": "standard",
-                "filter": ["lowercase","asciifolding", "autocomplete_filter"]
+                "filter": ["lowercase","asciifolding"]
               },
               "nGram_analyzer": {
                   "type": "custom",
                   "tokenizer": "whitespace",
-                  "filter": [ "lowercase", "asciifolding", "nGram_filter"]
+                  "filter": [ "lowercase", "asciifolding"]
               },
               "whitespace_analyzer": {
                   "type": "custom",
@@ -46,10 +28,12 @@
                   "filter": ["lowercase", "asciifolding"]
               },
               "custom_index_analyzer": {
+                    "type" : "custom",
                     "tokenizer": "standard",
-                    "filter": ["standard", "my_delimiter", "lowercase", "stop", "asciifolding", "porter_stem"]
+                    "filter": ["standard", "lowercase", "stop", "asciifolding", "porter_stem"]
               },
               "custom_search_analyzer": {
+                    "type" : "custom",
                     "tokenizer": "standard",
                     "filter": ["standard", "lowercase", "stop", "asciifolding", "porter_stem"]
               }
@@ -74,8 +58,8 @@
             }
          ]
   },
-  "aliases": { "global_alisas_for_search_transaction_index": {},
-               "global_alisas_for_write_transaction_index": {}
+  "aliases": { "global_alisas_for_search_transactions_index": {},
+               "global_alisas_for_write_transactions_index": {}
              },
   "dynamic_templates":
   [
@@ -149,7 +133,7 @@
         }
      },
      {
-       "strings_feild_not_analysed_tname": {
+       "strings_feild_not_analyzed_tname": {
              "match_mapping_type": "text",
              "path_match": "*",
              "mapping": {
@@ -202,34 +186,42 @@
   },
   "dynamic" : "strict",
   "mappings": {
-    "type_name" : {
+    "base_type" : {
           "date_detection": false,
           "properties"    : {
-               "customer_eid_for_alias" : { "type" : "keyword" },
-               "customer_name"          : {
-                                               "type" : "nested",
-                                               "include_in_parent": true,
-                                               "properties" : {
-                                                  "first_name"  : {"type" : "text", "analyzer" : "analyzer_keyword" },
-                                                  "middle_name" : {"type" : "text", "analyzer" : "analyzer_keyword" },
-                                                  "last_name"   : {"type" : "text", "analyzer" : "analyzer_keyword" }
-                                                  }
-                                            },
-               "transaction_type"         : { "type" : "keyword" },
-               "transaction_new"          : { "type" : "boolean", "index" : "not_analyzed" },
-               "status"                   : { "type" : "keyword" },
-               "transaction_desc"         : { "type" : "text",
-                                              "fields": {
-                                                    "raw": {"type":"keyword"},
-                                                    "auto_customer_name" : {
-                                                            "type" : "text",
-                                                            "index_analyzer" : "autocomplete_analyser",
-                                                            "search_analyzer" : "standard"}
-                                                        }
-                                            },
-               "created_at_date" : { "type" : "date",  "index" : "not_analyzed" },
-               "updated_at_date" : { "type" : "date",  "index" : "not_analyzed" }
-             }
-           }
+            "tran_userId_routingAliasId"	:	{ "type" :	"keyword"	},
+            "tran_accountId"	:	{ "type" :	"long"	},
+            "tran_accountNicName"	:	{ "type" :	"keyword"	},
+            "tran_accountName"	:	{ "type" :	"keyword"	},
+            "tran_date "	:	{ "type" :	"date"	},
+            "tran_amount "	:	{ "type" :	"long"	},
+            "tran_baseType "	:	{ "type" :	"keyword"	},
+            "tran_category "	:	{ "type" :	"keyword"	},
+            "tran_postDate"	:	{ "type" :	"date"	},
+            "tran_status"	:	{ "type" :	"keyword"	},
+            "tran_description "	:	{ "type" :	"text"	},
+            "tran_chequeNumber"	:	{ "type" :	"keyword"	},
+            "tran_CoACategoryId"	:	{ "type" :	"keyword"	},
+            "tran_CoACategoryName"	:	{ "type" :	"text"	},
+            "tran_CoASubCategoryId"	:	{ "type" :	"keyword"	},
+            "tran_CoASubCategoryName"	:	{ "type" :	"text"	},
+            "tran_isManual"	:	{ "type" :	"boolean"	},
+            "tran_isAutoSyncRule"	:	{ "type" :	"boolean"	},
+            "tran_merchantId"	:	{ "type" :	"keyword"	},
+            "tran_merchantName"	:	{ "type" :	"keyword"	},
+            "tran_merchantRuleId"	:	{ "type" :	"keyword"	},
+            "tran_merchantRuleName"	:	{ "type" :	"text"	},
+            "tran_isNew"	:	{ "type" :	"boolean"	},
+            "tran_isVerified"	:	{ "type" :	"boolean"	},
+            "tran_providerId"	:	{ "type" :	"keyword"	},
+            "tran_providerName"	:	{ "type" :	"keyword"	},
+            "tran_isBusinessOrPersonalExpense"	:	{ "type" :	"boolean"	},
+            "tran_isSplitTransaction"	:	{ "type" :	"boolean"	},
+            "tran_splitBusinessAmount"	:	{ "type" :	"long"	},
+            "tran_splitPersonalAmount"	:	{ "type" :	"long"	},
+            "tran_isReceiptAttached"	:	{ "type" :	"boolean"	},
+            "tran_receiptURL"	:	{ "type" :	"text"	}
+          }
+        }
   }
 }

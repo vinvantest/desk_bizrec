@@ -32,7 +32,7 @@ requireAndInit([
 	'./routes/createIndexMappingType.js',
 	'./routes/checkESCloud.js',
 	'./routes/addTypeToIndex.js',
-  './routes/addTranTemplate.js',
+  './routes/addTemplatetoES.js',
   './routes/createTranIndex.js',
   './routes/addDataDirectToTranIndex.js',
   './routes/getIndexDataCount.js',

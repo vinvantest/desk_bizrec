@@ -1,5 +1,5 @@
 {
-  "template" : "tran-*",
+  "template" : "invoices-*",
   "order" : 9,
   "settings": {
     "index": {
@@ -7,38 +7,20 @@
       "number_of_replicas" : 2,
       "analysis": {
         "analyzer": {
-              "filter": {
-                  "autocomplete_filter": {
-                      "type":     "edge_ngram",
-                      "min_gram": 1,
-                      "max_gram": 20,
-                      "token_chars": ["letter", "digit", "punctuation", "'symbol"]
-                  },
-                  "my_delimiter": {
-                      "type": "word_delimiter",
-                      "generate_word_parts": true,
-                      "catenate_words": true,
-                      "catenate_numbers": true,
-                      "catenate_all": true,
-                      "split_on_case_change": true,
-                      "preserve_original": true,
-                      "split_on_numerics": true,
-                      "stem_english_possessive": true
-                  }
-              },
               "analyzer_keyword": {
+                "type" : "custom",
                 "tokenizer": "keyword",
                 "filter": "lowercase"
               },
-              "autocomplete_analyser" : {
+              "standard" : {
                 "type": "custom",
                 "tokenizer": "standard",
-                "filter": ["lowercase","asciifolding", "autocomplete_filter"]
+                "filter": ["lowercase","asciifolding"]
               },
               "nGram_analyzer": {
                   "type": "custom",
                   "tokenizer": "whitespace",
-                  "filter": [ "lowercase", "asciifolding", "nGram_filter"]
+                  "filter": [ "lowercase", "asciifolding"]
               },
               "whitespace_analyzer": {
                   "type": "custom",
@@ -46,10 +28,12 @@
                   "filter": ["lowercase", "asciifolding"]
               },
               "custom_index_analyzer": {
+                    "type" : "custom",
                     "tokenizer": "standard",
-                    "filter": ["standard", "my_delimiter", "lowercase", "stop", "asciifolding", "porter_stem"]
+                    "filter": ["standard", "lowercase", "stop", "asciifolding", "porter_stem"]
               },
               "custom_search_analyzer": {
+                    "type" : "custom",
                     "tokenizer": "standard",
                     "filter": ["standard", "lowercase", "stop", "asciifolding", "porter_stem"]
               }
@@ -74,8 +58,8 @@
             }
          ]
   },
-  "aliases": { "global_alisas_for_search_transaction_index": {},
-               "global_alisas_for_write_transaction_index": {}
+  "aliases": { "global_alisas_for_search_invoices_index": {},
+               "global_alisas_for_write_invoices_index": {}
              },
   "dynamic_templates":
   [
@@ -149,7 +133,7 @@
         }
      },
      {
-       "strings_feild_not_analysed_tname": {
+       "strings_feild_not_analyzed_tname": {
              "match_mapping_type": "text",
              "path_match": "*",
              "mapping": {
@@ -202,34 +186,47 @@
   },
   "dynamic" : "strict",
   "mappings": {
-    "type_name" : {
+    "base_type" : {
           "date_detection": false,
           "properties"    : {
-               "customer_eid_for_alias" : { "type" : "keyword" },
-               "customer_name"          : {
-                                               "type" : "nested",
-                                               "include_in_parent": true,
-                                               "properties" : {
-                                                  "first_name"  : {"type" : "text", "analyzer" : "analyzer_keyword" },
-                                                  "middle_name" : {"type" : "text", "analyzer" : "analyzer_keyword" },
-                                                  "last_name"   : {"type" : "text", "analyzer" : "analyzer_keyword" }
-                                                  }
-                                            },
-               "transaction_type"         : { "type" : "keyword" },
-               "transaction_new"          : { "type" : "boolean", "index" : "not_analyzed" },
-               "status"                   : { "type" : "keyword" },
-               "transaction_desc"         : { "type" : "text",
-                                              "fields": {
-                                                    "raw": {"type":"keyword"},
-                                                    "auto_customer_name" : {
-                                                            "type" : "text",
-                                                            "index_analyzer" : "autocomplete_analyser",
-                                                            "search_analyzer" : "standard"}
-                                                        }
-                                            },
-               "created_at_date" : { "type" : "date",  "index" : "not_analyzed" },
-               "updated_at_date" : { "type" : "date",  "index" : "not_analyzed" }
-             }
-           }
+            "inv_userId_routingAliasId"	:	{ "type" :	"keyword"	},
+            "inv_supplierId"	:	{ "type" :	"keyword"	},
+            "inv_supplierDisplayName"	:	{ "type" :	"text"	},
+            "Inv_company_businessName"	:	{ "type" :	"keyword"	},
+            "Inv_company_ABN_ACN_LC"	:	{ "type" :	"keyword"	},
+            "Inv_company_address"	:	{
+              "type" : "nested",
+              "include_in_parent": true,
+              "properties" : {
+                      "Inv_company_address.streetNumber"	:	{ "type" :	"text"	},
+                      "Inv_company_address.streetName"	:	{ "type" :	"text"	},
+                      "Inv_company_address.streetType"	:	{ "type" :	"text"	},
+                      "Inv_company_address.suburb"	:	{ "type" :	"keyword"	},
+                      "Inv_company_address.state"	:	{ "type" :	"keyword"	},
+                      "Inv_company_address.postcode"	:	{ "type" :	"keyword"	},
+                      "Inv_company_address.country"	:	{ "type" :	"keyword"	},
+                      "Inv_company_address.contact"	:	{ "type" :	"keyword"	},
+                      "Inv_company_address.email"	:	{ "type" :	"keyword"	}
+                    }
+            },
+            "Inv_company_careOf"	:	{ "type" :	"text"	},
+            "Inv_invoiceDate"	:	{ "type" :	"date"	},
+            "Inv_purchaseOrderNumber"	:	{ "type" :	"keyword"	},
+            "Inv_dateOfService"	:	{ "type" :	"date"	},
+            "Inv_goodsOrServiceDescription"	:	{ "type" :	"text"	},
+            "Inv_TAX_Percentage"	:	{ "type" :	"integer"	},
+            "Inv_TAX_amount"	:	{ "type" :	"long"	},
+            "Inv_TAX_Exemption"	:	{ "type" :	"keyword"	},
+            "Inv_netAmount"	:	{ "type" :	"long"	},
+            "Inv_currency"	:	{ "type" :	"keyword"	},
+            "Inv_discount"	:	{ "type" :	"integer"	},
+            "Inv_creditNotes"	:	{ "type" :	"text"	},
+            "Inv_BankBSB"	:	{ "type" :	"integer"	},
+            "Inv_BankAccount"	:	{ "type" :	"long"	},
+            "Inv_BankAccountName"	:	{ "type" :	"keyword"	},
+            "Inv_isNew"	:	{ "type" :	"boolean"	},
+            "Inv_isPaid"	:	{ "type" :	"boolean"	}
+          }
+        }
   }
 }
