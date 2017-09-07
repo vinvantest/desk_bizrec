@@ -4,8 +4,8 @@ var helper = require('../helper/helperFunctions.js');
 var esClient = require('../controllers/elasticConnection.js');
 var queryBuilder = require('elastic-builder');
 
-function getIndexDataById(server) {
-  server.get('/getIndexDataById/:indexAliasName', function (req, res, next)
+function getUserById(server) {
+  server.get('/getUserById/:indexAliasName', function (req, res, next)
 	{
    console.log('Inside serer.post(getIndexDataById)');
    req.assert('indexAliasName', 'indexAliasName is required and must be lowercase string').notEmpty();//.isAlphanumeric();
@@ -28,8 +28,9 @@ function getIndexDataById(server) {
    console.log('Field['+field+'] = '+req.query[field]);
    }//for loop end
 
-   var documentId = req.query.id;
-   console.log('docmentId to be found in index ['+indexAliasName+'] -'+documentId);
+   var userUUID = req.query.id;
+   userUUID = userUUID.trim();
+   console.log('docmentId to be found in index ['+indexAliasName+'] -'+userUUID);
    var res_msg = 'Error - Document Not Indexed in ['+indexAliasName+']';
 	 console.log('Checking if ['+indexAliasName+'] Exists');
 
@@ -45,12 +46,12 @@ function getIndexDataById(server) {
                 var queryBody = {
                       query : {
                         match : {
-                            _id : documentId
+                            _id : userUUID
                         }
                       }
                 };*/
                 //now get the document id by uuid
-                var queryBody = { index : indexAliasName, type : 'base_type', id : routingValue_customer_uuid };
+                var queryBody = { index : indexAliasName, type : 'base_type', id : userUUID };
                 //now search for the record
                 esClient.get(queryBody)
                 //esClient.search({index: indexAliasName, type: 'type_name', body: queryBody})
@@ -68,8 +69,8 @@ function getIndexDataById(server) {
               }//end if index Exists
               else {
                 //index dosen't exist
-           			console.log('Index ['+indexAliasName+'] does not exist! Error value is ->'+JSON.stringify(err));
-           			res_msg = 'Index ['+indexAliasName+'] does not exists!'+JSON.stringify(err);
+           			console.log('Index ['+indexAliasName+'] does not exist! Error value is ->'+exists);
+           			res_msg = 'Index ['+indexAliasName+'] does not exists!'+exists;
                  //esClient.close();
                  helper.failure(res,next,res_msg,404);
               }//end else index exists
@@ -77,4 +78,4 @@ function getIndexDataById(server) {
     }); //end server.post()
 };
 
-module.exports = getIndexDataById;
+module.exports = getUserById;

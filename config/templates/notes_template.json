@@ -189,13 +189,13 @@
     "base_type" : {
           "date_detection": false,
           "properties"    : {
-            "note_userId_routingAliasId"	:	{ "type" :	"keyword"	},
-            "note_noteCateogryId"	:	{ "type" :	"keyword"	},
-            "note_noteCategoryName"	:	{ "type" :	"keyword"	},
-            "note_noteSubcategoryId"	:	{ "type" :	"keyword"	},
-            "note_noteSubcategoryName"	:	{ "type" :	"keyword"	},
-            "note_noteTitle"	:	{ "type" :	"text"	},
-            "note_noteText"	:	{ "type" :	"text"	}
+            "note_userId_routingAliasId"	:	{ "type" :	"keyword" , "index" : true},
+            "note_noteCateogryId"	:	{ "type" :	"keyword", "index" : true},
+            "note_noteCategoryName"	:	{ "type" :	"keyword", "index" : true},
+            "note_noteSubcategoryId"	:	{ "type" :	"keyword", "index" : true},
+            "note_noteSubcategoryName"	:	{ "type" :	"keyword", "index" : true },
+            "note_noteTitle"	:	{ "type" :	"text", "index" : true },
+            "note_noteText"	:	{ "type" :	"text"	, "index" : false }
           }
     }
   }

@@ -189,14 +189,14 @@
     "base_type" : {
           "date_detection": false,
           "properties"    : {
-                "coa_userId_routingAliasId"	:	{ "type" :	"keyword"	},
-                "coa_CoACategoryId"	:	{ "type" :	"keyword"	},
-                "coa_CoACategoryName"	:	{ "type" :	"keyword"	},
-                "coa_CoASubCategoryId"	:	{ "type" :	"keyword"	},
-                "coa_CoASubCategoryName"	:	{ "type" :	"keyword"	},
-                "coa_tax"	:	{ "type" :	"keyword"	},
-                "coa_tax_type"	:	{ "type" :	"keyword"	},
-                "coa_tax_percentage"	:	{ "type" :	"keyword"	}
+                "coa_userId_routingAliasId"	:	{ "type" :	"keyword"	, "index": true},
+                "coa_CoACategoryId"	:	{ "type" :	"keyword" , "index": true	},
+                "coa_CoACategoryName"	:	{ "type" :	"keyword" , "index": true	},
+                "coa_CoASubCategoryId"	:	{ "type" :	"keyword" , "index": true	},
+                "coa_CoASubCategoryName"	:	{ "type" :	"keyword"	, "index": true},
+                "coa_tax"	:	{ "type" :	"keyword"	, "index": true},
+                "coa_tax_type"	:	{ "type" :	"keyword"	, "index": true},
+                "coa_tax_percentage"	:	{ "type" :	"keyword", "index": false	}
           }
     }
   }

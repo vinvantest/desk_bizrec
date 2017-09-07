@@ -189,56 +189,56 @@
     "base_type" : {
           "date_detection": false,
           "properties"    : {
-            "usr_displayName" : {"type" : "text" },
-            "usr_firstName" : { "type" : "keyword" },
-            "usr_familyName" : { "type" : "keyword" },
-            "usr_middleName" : { "type" : "keyword" },
-            "usr_dob" : { "type" : "date" },
-            "usr_gender" : { "type" : "keyword" },
-            "usr_email" : { "type" : "keyword" },
+            "usr_displayName" : {"type" : "text" , "index" : true	},
+            "usr_firstName" : { "type" : "keyword" , "index" : true	},
+            "usr_familyName" : { "type" : "keyword", "index" : true	 },
+            "usr_middleName" : { "type" : "keyword", "index" : true	 },
+            "usr_dob" : { "type" : "date" , "index" : true	},
+            "usr_gender" : { "type" : "keyword" , "index" : true	},
+            "usr_email" : { "type" : "keyword" , "index" : true	},
             "usr_company" : {
               "type" : "nested",
               "include_in_parent": true,
               "properties" : {
-                        "company_businessName" : { "type" : "keyword"},
-                        "company_ABN_ACN_LC" : { "type" : "keyword" },
-                        "company_contact" : {"type" : "keyword" },
-                        "company__email" : {"type" : "keyword" },
+                        "company_businessName" : { "type" : "keyword", "index" : true	},
+                        "company_ABN_ACN_LC" : { "type" : "keyword" , "index" : true	},
+                        "company_contact" : {"type" : "keyword" , "index" : true	},
+                        "company__email" : {"type" : "keyword", "index" : true	 },
                         "company_address" :
                           {
                           "type" : "nested",
                           "include_in_parent": true,
                           "properties" :
                               {
-                                    "company_address_streetNumber" : { "type" : "text" },
-                                    "company_address_streetName" : {"type" : "text" },
-                                    "company_address_streetType" : {"type" : "text" },
-                                    "company_address_suburb" : {"type" : "keyword" },
-                                    "company_address_state" : {"type" : "keyword" },
-                                    "company_address_postcode" : {"type" : "keyword" },
-                                    "company_address.country" : {"type" : "keyword" }
+                                    "company_address_streetNumber" : { "type" : "text" , "index" : false	},
+                                    "company_address_streetName" : {"type" : "text" , "index" : false	},
+                                    "company_address_streetType" : {"type" : "text" , "index" : false	},
+                                    "company_address_suburb" : {"type" : "keyword" , "index" : true	},
+                                    "company_address_state" : {"type" : "keyword" , "index" : true	},
+                                    "company_address_postcode" : {"type" : "keyword", "index" : true	 },
+                                    "company_address.country" : {"type" : "keyword", "index" : true	 }
                               }
                         }
                       }
                     },
-            "usr_url" : {"type" : "text" },
-            "usr_locale" : {"type" : "keyword" },
-            "usr_currency" : {"type" : "keyword" },
-            "usr_isSubscritionActive" : { "type" : "boolean" },
-            "usr_subscriptionType": { "type" : "keyword" },
-            "usr_subscriptionAmount" : {"type" : "integer"},
-            "usr_subscriptionCostToDate" : { "type" : "long"},
-            "usr_subscriptionFrequency": { "type" : "integer" },
-            "usr_isUserCloudConnected" : { "type" : "boolean"},
-            "usr_isDropBox" : { "type" : "boolean"},
-            "usr_isGoogle": { "type" : "boolean"},
-            "usr_isBox" : { "type" : "boolean"},
-            "usr_isICloud" : { "type" : "boolean"},
-            "usr_isOneDrive" : { "type" : "boolean"},
-            "usr_invoicePaymentBankBSB" : { "type" : "integer" },
-            "usr_invoicePaymentBankAccountNumber": { "type" : "integer" },
-            "usr_invoicePaymentBankAccountName" : { "type" : "keyword" },
-            "usr_invoicePaymentBankName" : { "type" : "text" }
+            "usr_url" : {"type" : "text", "index" : false	 },
+            "usr_locale" : {"type" : "keyword" , "index" : true	},
+            "usr_currency" : {"type" : "keyword" , "index" : true	},
+            "usr_isSubscritionActive" : { "type" : "boolean" , "index" : true	},
+            "usr_subscriptionType": { "type" : "keyword" , "index" : true	},
+            "usr_subscriptionAmount" : {"type" : "integer", "index" : true	},
+            "usr_subscriptionCostToDate" : { "type" : "long", "index" : true	},
+            "usr_subscriptionFrequency": { "type" : "integer" , "index" : true	},
+            "usr_isUserCloudConnected" : { "type" : "boolean", "index" : true	},
+            "usr_isDropBox" : { "type" : "boolean", "index" : true	},
+            "usr_isGoogle": { "type" : "boolean", "index" : true	},
+            "usr_isBox" : { "type" : "boolean", "index" : true	},
+            "usr_isICloud" : { "type" : "boolean", "index" : true	},
+            "usr_isOneDrive" : { "type" : "boolean", "index" : true	},
+            "usr_invoicePaymentBankBSB" : { "type" : "integer" , "index" : true	},
+            "usr_invoicePaymentBankAccountNumber": { "type" : "integer" , "index" : true	},
+            "usr_invoicePaymentBankAccountName" : { "type" : "keyword" , "index" : true	},
+            "usr_invoicePaymentBankName" : { "type" : "text" , "index" : true	}
           }
         }
   }

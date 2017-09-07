@@ -189,31 +189,31 @@
     "base_type" : {
           "date_detection": false,
           "properties"    : {
-            "cust_userId_routingAliasId"	:	{ "type" :	"keyword"	},
-            "cust_displayName"	:	{ "type" :	"text"	},
-            "cust_companyNickName"	:	{ "type" :	"text"	},
-            "cust_contactfamilyName"	:	{ "type" :	"text"	},
-            "cust_contactMiddleName"	:	{ "type" :	"text"	},
-            "cust_email"	:	{ "type" :	"keyword"	},
-            "cust_currency"	:	{ "type" :	"keyword"	},
-            "cust_discount"	:	{ "type" :	"integer"	},
-            "cust_businessCardURL"	:	{ "type" :	"text"	},
+            "cust_userId_routingAliasId"	:	{ "type" :	"keyword"	, "index" : true },
+            "cust_displayName"	:	{ "type" :	"text" , "index" : true },
+            "cust_companyNickName"	:	{ "type" :	"text" , "index" : true },
+            "cust_contactfamilyName"	:	{ "type" :	"text" , "index" : true 	},
+            "cust_contactMiddleName"	:	{ "type" :	"text" , "index" : true 	},
+            "cust_email"	:	{ "type" :	"keyword" , "index" : true 	},
+            "cust_currency"	:	{ "type" :	"keyword" , "index" : true 	},
+            "cust_discount"	:	{ "type" :	"integer" , "index" : true 	},
+            "cust_businessCardURL"	:	{ "type" :	"text" , "index" : false 	},
             "cust_company"	:	{
                 "type" : "nested",
                 "include_in_parent": true,
                 "properties" : {
-                      "cust_company_businessName"	:	{ "type" :	"text"	},
-                      "cust_company_ABN_ACN_LC"	:	{ "type" :	"text"	},
-                      "cust_company_address"	:	{ "type" :	"text"	},
-                      "cust_company_address_streetNumber"	:	{ "type" :	"text"	},
-                      "cust_company_address_streetName"	:	{ "type" :	"keyword"	},
-                      "cust_company_address_streetType"	:	{ "type" :	"keyword"	},
-                      "cust_company_address_suburb"	:	{ "type" :	"keyword"	},
-                      "cust_company_address_state"	:	{ "type" :	"keyword"	},
-                      "cust_company_address_postcode"	:	{ "type" :	"keyword"	},
-                      "cust_company_address_country"	:	{ "type" :	"keyword"	},
-                      "cust_company_address_contact"	:	{ "type" :	"keyword"	},
-                      "cust_company_address_email"	:	{ "type" :	"keyword"	}
+                      "cust_company_businessName"	:	{ "type" :	"text", "index" : true 	},
+                      "cust_company_ABN_ACN_LC"	:	{ "type" :	"text", "index" : true 	},
+                      "cust_company_address"	:	{ "type" :	"text", "index" : false},
+                      "cust_company_address_streetNumber"	:	{ "type" :	"text", "index" : false 	},
+                      "cust_company_address_streetName"	:	{ "type" :	"keyword", "index" : false 	},
+                      "cust_company_address_streetType"	:	{ "type" :	"keyword", "index" : false 	},
+                      "cust_company_address_suburb"	:	{ "type" :	"keyword", "index" : true 	},
+                      "cust_company_address_state"	:	{ "type" :	"keyword", "index" : true 	},
+                      "cust_company_address_postcode"	:	{ "type" :	"keyword", "index" : true 	},
+                      "cust_company_address_country"	:	{ "type" :	"keyword", "index" : true 	},
+                      "cust_company_address_contact"	:	{ "type" :	"keyword", "index" : false 	},
+                      "cust_company_address_email"	:	{ "type" :	"keyword", "index" : false 	}
                     }
                   }
           }

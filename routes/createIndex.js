@@ -3,10 +3,11 @@
 var helper = require('../helper/helperFunctions.js');
 var esClient = require('../controllers/elasticConnection.js');
 
-function createTranIndex(server) {
-    server.post('/createTranIndex/:indexName', function (req, res, next)
+function createIndex(server) {
+    server.post('/createIndex', function (req, res, next)
 		{
 		 req.assert('indexName', 'indexName is required and must be lowercase').notEmpty();//.isLowercase();
+     req.assert('templateType', 'templateType is required and must be alpha string').notEmpty().isAlpha();
 		 const errors = req.validationErrors();
 		  if(errors) {
 			helper.failure(res,next,errors[0],401);
@@ -26,13 +27,47 @@ function createTranIndex(server) {
 		  }//for loop end
 
 		 var indexName = req.params.indexName;
-     indexName = indexName.replace(/[^a-zA-Z0-9_-]/g,'_').replace(/_{2,}/g,'_').toLowerCase();
+     var templateType = req.params.templateType;
+     indexName = indexName.replace(/[^a-zA-Z0-9_-]/g,'_').replace(/_{2,}/g,'_').toLowerCase().trim();
+     templateType = templateType.trim().toLowerCase()
      console.log('var indexName after conversion = [' + indexName + ']');
 		 var res_msg = 'Index not created';
 
   //check if index creation is within data model
-  if(!indexName.includes('tran'))
-    helper.failure(res,next,res_msg + ' - ' + 'no template exists for the index name',404);
+  switch (templateType) {
+      case "banks":
+        console.log('indexName ['+indexName+'] will use Banks Template');
+        break;
+       case "coa":
+          console.log('indexName ['+indexName+'] will use Chart Of Accounts Template');
+          break;
+          case "customers":
+            console.log('indexName ['+indexName+'] will use Customers Template');
+            break;
+            case "invoices":
+              console.log('indexName ['+indexName+'] will use Invoices Template');
+              break;
+              case "notes":
+                console.log('indexName ['+indexName+'] will use Notes Template');
+                break;
+                case "payments":
+                  console.log('indexName ['+indexName+'] will use Payments Template');
+                  break;
+                  case "rules":
+                    console.log('indexName ['+indexName+'] will use Rules Template');
+                    break;
+                    case "suppliers":
+                      console.log('indexName ['+indexName+'] will use Suppliers Template');
+                      break;
+                      case "transactions":
+                        console.log('indexName ['+indexName+'] will use Transactions Template');
+                        break;
+                        case "users":
+                          console.log('indexName ['+indexName+'] will use Users Template');
+                          break;
+      default:
+        helper.failure(res,next,'Error: no matching templateType specified for the indexName ['+indexName+']',404);
+    }//end switch
 
 	 console.log('Checking if index Exists('+indexName+')');
 	 esClient.indices.exists(indexName)
@@ -75,4 +110,4 @@ function createTranIndex(server) {
     });
 };
 
-module.exports = createTranIndex;
+module.exports = createIndex;

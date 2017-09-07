@@ -189,15 +189,15 @@
     "base_type" : {
           "date_detection": false,
           "properties"    : {
-                "rule_userId_routingAliasId"	:	{ "type" :	"keyword"	},
-                "rule_ruleName"	:	{ "type" :	"keyword"	},
-                "rule_sRuleBusinessType"	:	{ "type" :	"keyword"	},
-                "rule_supplierId"	:	{ "type" :	"keyword"	},
-                "rule_CoACategoryId"	:	{ "type" :	"keyword"	},
-                "rule_CoASubCategoryId"	:	{ "type" :	"keyword"	},
-                "rule_bankAccount"	:	{ "type" :	"keyword"	},
-                "rule_dateCreated"	:	{ "type" :	"keyword"	},
-                "rule_isRuleActive"	:	{ "type" :	"boolean"	}
+                "rule_userId_routingAliasId"	:	{ "type" :	"keyword", "index" : true		},
+                "rule_ruleName"	:	{ "type" :	"keyword", "index" : true		},
+                "rule_sRuleBusinessType"	:	{ "type" :	"keyword", "index" : true		},
+                "rule_supplierId"	:	{ "type" :	"keyword", "index" : true		},
+                "rule_CoACategoryId"	:	{ "type" :	"keyword", "index" : true		},
+                "rule_CoASubCategoryId"	:	{ "type" :	"keyword", "index" : true		},
+                "rule_bankAccount"	:	{ "type" :	"keyword", "index" : true		},
+                "rule_dateCreated"	:	{ "type" :	"keyword", "index" : true		},
+                "rule_isRuleActive"	:	{ "type" :	"boolean", "index" : true		}
           }
     }
   }

@@ -29,18 +29,15 @@ function requireAndInit(handlers) {
 }
 
 requireAndInit([
-	'./routes/createIndexMappingType.js',
-	'./routes/checkESCloud.js',
-	'./routes/addTypeToIndex.js',
-  './routes/addTemplatetoES.js',
-  './routes/createTranIndex.js',
-  './routes/addDataDirectToTranIndex.js',
-  './routes/getIndexDataCount.js',
-  './routes/getIndexDataById.js',
-  './routes/createIndexAliasByRounting.js',
-  './routes/swapAliasToIndex.js',
-  './routes/getAliasDataCountForIndex.js',
   './routes/addDataViaAlias.js',
+  './routes/addTemplatetoES.js',
+  './routes/checkESCloud.js',
+  './routes/createIndex.js',
+  './routes/createIndexAliasByRounting.js',
+  './routes/getAliasDataCountForIndex.js',
+  './routes/getIndexDataById.js',
+  './routes/getUserById.js',
+  './routes/swapAliasToIndex.js',
     // Assuming this list gets long
 ]);
 
