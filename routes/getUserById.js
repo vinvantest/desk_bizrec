@@ -42,25 +42,25 @@ function getUserById(server) {
               { //index exists
                 console.log('Index ['+indexAliasName+'] exists in ElasticSearch. Exists value is ->'+JSON.stringify(exists));
                 res_msg = 'Index ['+indexAliasName+'] exists in ElasticSearch. Exists value is ->'+JSON.stringify(exists);
-                /*  //if you want to search ... but best use get() for quicker results
+                 //if you want to search ... but best use get() for quicker results
                 var queryBody = {
                       query : {
                         match : {
                             _id : userUUID
                         }
                       }
-                };*/
+                };
                 //now get the document id by uuid
-                var queryBody = { index : indexAliasName, type : 'base_type', id : userUUID };
+                //var queryBody = { index : indexAliasName, type : 'base_type', id : userUUID };
                 //now search for the record
-                esClient.get(queryBody)
-                //esClient.search({index: indexAliasName, type: 'type_name', body: queryBody})
+                //esClient.get(queryBody)
+                esClient.search({index: indexAliasName, type: 'type_name', body: queryBody})
                   .then(function (resp){
                     console.log('Index ['+indexAliasName+'] exists in ElasticSearch AND response is = '+JSON.stringify(resp));
                     //res_msg = 'Index ['+indexAliasName+'] exists in ElasticSearch AND count = '+resp.count;
                      //esClient.close();
                     helper.success(res,next,JSON.stringify(resp));
-                  }, function (error) {
+                  },function (error) {
                     console.log('Error: Index ['+indexAliasName+'] exists in ElasticSearch but search() error -'+JSON.stringify(error));
                     res_msg = 'Error: Index ['+indexAliasName+'] exists in ElasticSearch but search() error -'+JSON.stringify(error);
                      //esClient.close();
