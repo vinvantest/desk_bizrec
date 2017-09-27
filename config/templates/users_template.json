@@ -189,10 +189,14 @@
     "base_type" : {
           "date_detection": false,
           "properties"    : {
+            "usr_uid": {"type": "keyword", "index": true},
             "usr_displayName" : {"type" : "text" , "index" : true	},
             "usr_firstName" : { "type" : "keyword" , "index" : true	},
             "usr_familyName" : { "type" : "keyword", "index" : true	 },
             "usr_middleName" : { "type" : "keyword", "index" : true	 },
+            "usr_emailVerified" : { "type": "boolean", "index" : true},
+            "usr_phoneNumber": { "type": "text", "index": false},
+            "usr_photoURL" : { "type": "text", "index": false },
             "usr_dob" : { "type" : "date" , "index" : true	},
             "usr_gender" : { "type" : "keyword" , "index" : true	},
             "usr_email" : { "type" : "keyword" , "index" : true	},

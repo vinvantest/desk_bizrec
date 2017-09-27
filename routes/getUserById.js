@@ -59,7 +59,7 @@ function getUserById(server) {
                     console.log('Index ['+indexAliasName+'] exists in ElasticSearch AND response is = '+JSON.stringify(resp));
                     //res_msg = 'Index ['+indexAliasName+'] exists in ElasticSearch AND count = '+resp.count;
                      //esClient.close();
-                    helper.success(res,next,JSON.stringify(resp));
+                    helper.success(res,next,resp);
                   },function (error) {
                     console.log('Error: Index ['+indexAliasName+'] exists in ElasticSearch but search() error -'+JSON.stringify(error));
                     res_msg = 'Error: Index ['+indexAliasName+'] exists in ElasticSearch but search() error -'+JSON.stringify(error);

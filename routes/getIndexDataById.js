@@ -29,6 +29,7 @@ function getIndexDataById(server) {
    }//for loop end
 
    var documentId = req.query.id;
+   var routingValue_customer_uuid = req.query.id;
    console.log('docmentId to be found in index ['+indexAliasName+'] -'+documentId);
    var res_msg = 'Error - Document Not Indexed in ['+indexAliasName+']';
 	 console.log('Checking if ['+indexAliasName+'] Exists');
@@ -41,24 +42,24 @@ function getIndexDataById(server) {
               { //index exists
                 console.log('Index ['+indexAliasName+'] exists in ElasticSearch. Exists value is ->'+JSON.stringify(exists));
                 res_msg = 'Index ['+indexAliasName+'] exists in ElasticSearch. Exists value is ->'+JSON.stringify(exists);
-                /*  //if you want to search ... but best use get() for quicker results
+                //if you want to search ... but best use get() for quicker results but doesn't work on alias
                 var queryBody = {
                       query : {
                         match : {
                             _id : documentId
                         }
                       }
-                };*/
+                };
                 //now get the document id by uuid
-                var queryBody = { index : indexAliasName, type : 'base_type', id : routingValue_customer_uuid };
+                //var queryBody = { index : indexAliasName, type : 'base_type', id : routingValue_customer_uuid };
                 //now search for the record
-                esClient.get(queryBody)
-                //esClient.search({index: indexAliasName, type: 'type_name', body: queryBody})
+                //esClient.get(queryBody)
+                esClient.search({index: indexAliasName, type: 'type_name', body: queryBody})
                   .then(function (resp){
                     console.log('Index ['+indexAliasName+'] exists in ElasticSearch AND response is = '+JSON.stringify(resp));
                     //res_msg = 'Index ['+indexAliasName+'] exists in ElasticSearch AND count = '+resp.count;
                      //esClient.close();
-                    helper.success(res,next,JSON.stringify(resp));
+                     helper.successArray(res,next,resp.hits.hits);
                   }, function (error) {
                     console.log('Error: Index ['+indexAliasName+'] exists in ElasticSearch but search() error -'+JSON.stringify(error));
                     res_msg = 'Error: Index ['+indexAliasName+'] exists in ElasticSearch but search() error -'+JSON.stringify(error);
