@@ -8,7 +8,11 @@ const uuidv1 = require('uuid/v1');
         'data' : data
       };
       res.setHeader('Content-type', 'application/json');
-      res.setHeader('Access-Control-Allow-Origin','*');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token');
+      res.setHeader('Access-Control-Allow-Methods', '*');
+      res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
+      res.setHeader('Access-Control-Max-Age', '1000');
       /*
       Access-Control-Allow-Credentials,
       Access-Control-Expose-Headers,
@@ -24,8 +28,13 @@ function _respondArray(res, next, status, data, http_code) {
     var response = {
        'data' : [data]
       }
-     res.setHeader('Content-type', 'application/json');
-     res.setHeader('Access-Control-Allow-Origin','*');
+      res.setHeader('Content-type', 'application/json');
+      res.setHeader('Content-type', 'application/json');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token');
+      res.setHeader('Access-Control-Allow-Methods', '*');
+      res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
+      res.setHeader('Access-Control-Max-Age', '1000');
      /*
      Access-Control-Allow-Credentials,
      Access-Control-Expose-Headers,
